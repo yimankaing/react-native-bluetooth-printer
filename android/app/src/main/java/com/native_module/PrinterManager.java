@@ -126,10 +126,14 @@ public class PrinterManager extends ReactContextBaseJavaModule {
       byte[] sendData = null;
 
       Bitmap bm = BitmapFactory.decodeResource(context.getResources(), image);
-      int height = D58MMWIDTH * bm.getHeight() / bm.getWidth();
-      bm = Bitmap.createScaledBitmap(bm, D58MMWIDTH, height, false);
-      sendData = PrintPicture.POS_PrintBMP(bm, D58MMWIDTH, 0);
-      mService.write(sendData);
+      if (bm != null) {
+        int height = D58MMWIDTH * bm.getHeight() / bm.getWidth();
+        bm = Bitmap.createScaledBitmap(bm, D58MMWIDTH, height, false);
+        sendData = PrintPicture.POS_PrintBMP(bm, D58MMWIDTH, 0);
+        mService.write(sendData);
+      } else {
+        Toast.makeText(context, Constants.no_file, Toast.LENGTH_SHORT).show();
+      }
     } else {
       Toast.makeText(context, Constants.notConnected, Toast.LENGTH_SHORT).show();
     }
@@ -142,10 +146,14 @@ public class PrinterManager extends ReactContextBaseJavaModule {
       byte[] sendData = null;
 
       Bitmap bm = BitmapFactory.decodeFile(path);
-      int height = D58MMWIDTH * bm.getHeight() / bm.getWidth();
-      bm = Bitmap.createScaledBitmap(bm, D58MMWIDTH, height, false);
-      sendData = PrintPicture.POS_PrintBMP(bm, D58MMWIDTH, 0);
-      mService.write(sendData);
+      if (bm != null) {
+        int height = D58MMWIDTH * bm.getHeight() / bm.getWidth();
+        bm = Bitmap.createScaledBitmap(bm, D58MMWIDTH, height, false);
+        sendData = PrintPicture.POS_PrintBMP(bm, D58MMWIDTH, 0);
+        mService.write(sendData);
+      } else {
+        Toast.makeText(context, Constants.no_file, Toast.LENGTH_SHORT).show();
+      }
     } else {
       Toast.makeText(context, Constants.notConnected, Toast.LENGTH_SHORT).show();
     }

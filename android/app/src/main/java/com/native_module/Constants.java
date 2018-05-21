@@ -13,4 +13,5 @@ public final class Constants {
   static String no_BT_adapter = "មិនមានឧបករណ៍ប្លូធូស";
   static String bt_on = "ប្លូធូស បានដំណើរការ";
   static String bt_off = "ប្លូធូស មិនដំណើរការ";
+  static String no_file = "មិនមានឯកសារ";
 }

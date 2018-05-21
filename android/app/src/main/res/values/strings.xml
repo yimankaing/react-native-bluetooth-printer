@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">PrintDemo</string>
+    <string name="app_name">RN Printer</string>
 
     <string name="pairedDevices">ឧបករណ៍</string>
     <string name="otherDevice">ឧបករណ៍ដទៃទៀត</string>
@@ -17,5 +17,6 @@
     <string name="menu_settings">set</string>
     <string name="strLang">en</string>
     <string name="button_scan">ស្វែងរក</string>
+    <string name="no_file">មិនមានឯកសារ</string>
 
 </resources>
