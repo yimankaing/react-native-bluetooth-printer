@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PrintDemo</string>
+
+    <string name="pairedDevices">ឧបករណ៍</string>
+    <string name="otherDevice">ឧបករណ៍ដទៃទៀត</string>
+    <string name="none_paired">មិនមាន ឧបករណ៍</string>
+    <string name="scanning">កំពុងស្វែងរក ឧបករណ៍</string>
+    <string name="select_device">ជ្រើសរើស ឧបករណ៍ ដើម្បីដំណើរការ</string>
+    <string name="none_found">មិនអាចស្វែងរក ឧបករណ៍</string>
+    <string name="btnSearch">Connect  Bluetooth  Printer</string>
+    <string name="btnSend">Print Text</string>
+    <string name="btn_print">Print</string>
+    <string name="btnDis">Disconnect</string>
+    <string name="txt_content">&quot;&quot;</string>
+    <string name="menu_settings">set</string>
+    <string name="strLang">en</string>
+    <string name="button_scan">ស្វែងរក</string>
+
+</resources>

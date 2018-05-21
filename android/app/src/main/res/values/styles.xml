@@ -1,0 +1,17 @@
+<resources>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="ListViewStyle" parent="Base.Widget.AppCompat.ListView">
+        <item name="android:divider">@color/light_gray</item>
+        <item name="android:dividerHeight">1dp</item>
+    </style>
+
+    <style name="DeviceListTheme" parent="android:Theme.Material.Light.Dialog.NoActionBar">
+        <item name="android:listViewStyle">@style/ListViewStyle</item>
+    </style>
+
+</resources>
