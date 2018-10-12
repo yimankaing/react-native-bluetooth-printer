@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.BaseActivityEventListener;
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -142,28 +143,31 @@ public class PrinterManager extends ReactContextBaseJavaModule {
   @ReactMethod
   private void printImageFromFilePath(ReactApplicationContext context, String path) {
 
-    if (mService.getState() == BluetoothService.STATE_CONNECTED) {
-      byte[] sendData = null;
+    byte[] sendData = null;
 
-      Bitmap bm = BitmapFactory.decodeFile(path);
-      if (bm != null) {
-        int height = D58MMWIDTH * bm.getHeight() / bm.getWidth();
-        bm = Bitmap.createScaledBitmap(bm, D58MMWIDTH, height, false);
-        sendData = PrintPicture.POS_PrintBMP(bm, D58MMWIDTH, 0);
-        mService.write(sendData);
-      } else {
-        Toast.makeText(context, Constants.no_file, Toast.LENGTH_SHORT).show();
-      }
+    Bitmap bm = BitmapFactory.decodeFile(path);
+    if (bm != null) {
+      int height = D80MMWIDTH * bm.getHeight() / bm.getWidth();
+      bm = Bitmap.createScaledBitmap(bm, D80MMWIDTH, height, false);
+      sendData = PrintPicture.POS_PrintBMP(bm, D80MMWIDTH, 0);
+      mService.write(sendData);
     } else {
-      Toast.makeText(context, Constants.notConnected, Toast.LENGTH_SHORT).show();
+      Toast.makeText(context, Constants.no_file, Toast.LENGTH_SHORT).show();
     }
   }
 
-  @SuppressLint("SdCardPath")
   @ReactMethod
-  void printInvoice(String imagePath) {
+  void printImage(String imagePath, Callback callback) {
     ReactApplicationContext context = getReactApplicationContext();
-    printImageFromFilePath(context, imagePath);
+
+    if (mService.getState() == BluetoothService.STATE_CONNECTED) {
+      printImageFromFilePath(context, imagePath);
+      callback.invoke("connected");
+    } else {
+      Toast.makeText(context, Constants.notConnected, Toast.LENGTH_SHORT).show();
+      connect();
+      callback.invoke("disconnected");
+    }
   }
 
   /*TEXT*/

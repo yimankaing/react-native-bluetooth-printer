@@ -124,8 +124,7 @@ const <b>resources</b> = android/app/src/main/res;
 ## <b>React native project</b>
 
 ```
-
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
@@ -138,6 +137,9 @@ import ViewShot from "react-native-view-shot";
 import RNFS from "react-native-fs";
 
 const PrinterManager = NativeModules.PrinterManager;
+const imageType = "png";
+const imagePath = `${RNFS.ExternalDirectoryPath}/image.${imageType}`;
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -146,10 +148,10 @@ export default class App extends React.Component {
 
   captureView = async () => {
     this.refs.viewShot.capture().then(uri => {
-      let path = RNFS.ExternalDirectoryPath + '/invoice.jpg';
-      RNFS.moveFile(uri, path)
+      RNFS.moveFile(uri, imagePath)
         .then((success) => {
           console.log('FILE MOVED!');
+          //this.printViewShot(imagePath)
         })
         .catch((err) => {
           console.log(err.message);
@@ -158,22 +160,32 @@ export default class App extends React.Component {
     });
   };
 
+  printViewShot = (imagePath) => {
+    PrinterManager.printImage(imagePath, (res) => {
+      console.log(res)
+      if (res === 'connected') {
+        //do something
+      } else {
+        //do something
+      }
+    });
+  };
+
   render() {
-    let invoicePath = `${RNFS.ExternalDirectoryPath}/invoice.jpg`;
     return (
       <View style={styles.container}>
         <ViewShot ref="viewShot"
-                  options={{format: "jpg", quality: 0.5}}>
+          options={{ format: "jpg", quality: 0.9 }}>
           <Button title="Connect"
-                  onPress={() => PrinterManager.connect()}/>
+            onPress={() => PrinterManager.connect()} />
           <Button title="Print Text"
-                  onPress={() => PrinterManager.printText("Hello")}/>
+            onPress={() => PrinterManager.printText("Hello")} />
           <Button title="Print view shot"
-                  onPress={() => PrinterManager.printInvoice(invoicePath)}/>
+            onPress={() => this.printViewShot(imagePath)} />
           <Button title="Disconnect"
-                  onPress={() => PrinterManager.disconnect()}/>
+            onPress={() => PrinterManager.disconnect()} />
           <Button title="Capture"
-                  onPress={() => this.captureView()}/>
+            onPress={() => this.captureView()} />
         </ViewShot>
       </View>
     );
@@ -186,16 +198,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
   },
 });
 
